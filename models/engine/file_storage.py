@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 """This module defines a class to manage file storage for hbnb clone"""
 import json
 
@@ -8,8 +7,15 @@ class FileStorage:
     __file_path = 'file.json'
     __objects = {}
 
-    def all(self):
+    def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
+        new_object = {}
+        if cls:
+            for key, value in self.__objects.items():
+                class_name, class_id = key.split(".")
+                if cls == class_id and cls.id == class_id:
+                    new_object[key] = value
+            return new_object
         return FileStorage.__objects
 
     def new(self, obj):
@@ -25,6 +31,14 @@ class FileStorage:
                 temp[key] = val.to_dict()
             json.dump(temp, f)
 
+    def delete(self, obj=None):
+        if obj:
+            for key, value in self.__objects.items():
+                cls, cls_id = key.split(".")
+                # obj_id = cls + "." + cls_id
+                if obj.id == cls_id:
+                    del self.__objects[key]
+
     def reload(self):
         """Loads storage dictionary from file"""
         from models.base_model import BaseModel
@@ -36,15 +50,20 @@ class FileStorage:
         from models.review import Review
 
         classes = {
-                    'BaseModel': BaseModel, 'User': User, 'Place': Place,
-                    'State': State, 'City': City, 'Amenity': Amenity,
-                    'Review': Review
-                  }
+            'BaseModel': BaseModel, 'User': User, 'Place': Place,
+            'State': State, 'City': City, 'Amenity': Amenity,
+            'Review': Review
+        }
         try:
             temp = {}
             with open(FileStorage.__file_path, 'r') as f:
                 temp = json.load(f)
                 for key, val in temp.items():
-                        self.all()[key] = classes[val['__class__']](**val)
+                    self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
+
+
+fs = FileStorage()
+
+fs.delete()

@@ -133,12 +133,13 @@ class HBNBCommand(cmd.Cmd):
                 print(key, value)
                 if '"' in value:
                     value = value.replace('"', "")
-                    value = value.replace(" ", "_")
+                    value = value.replace("_", " ")
                 elif '.' in value:
                     value = float(value)
-
+                else:
+                    value = int(value)
                 print(key)
-                new_instance.key = value
+                setattr(new_instance, key, value)
 
         storage.save()
         print(new_instance.id)
