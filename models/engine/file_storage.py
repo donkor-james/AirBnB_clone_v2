@@ -13,8 +13,9 @@ class FileStorage:
         if cls:
             for key, value in self.__objects.items():
                 class_name, class_id = key.split(".")
-                if cls == class_id and cls.id == class_id:
+                if cls == class_name:
                     new_object[key] = value
+            print(new_object)
             return new_object
         return FileStorage.__objects
 
@@ -32,12 +33,16 @@ class FileStorage:
             json.dump(temp, f)
 
     def delete(self, obj=None):
+        obj
         if obj:
             for key, value in self.__objects.items():
                 cls, cls_id = key.split(".")
+                # print(key)
                 # obj_id = cls + "." + cls_id
                 if obj.id == cls_id:
+                    print(cls_id + " = " + obj.id)
                     del self.__objects[key]
+                    break
 
     def reload(self):
         """Loads storage dictionary from file"""
@@ -64,6 +69,6 @@ class FileStorage:
             pass
 
 
-fs = FileStorage()
+# fs = FileStorage()
 
-fs.delete()
+# fs.delete()
