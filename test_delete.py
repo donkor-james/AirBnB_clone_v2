@@ -2,11 +2,16 @@
 """
 from models.engine.file_storage import FileStorage
 from models.state import State
-
+from models.user import User
+from console import HBNBCommand
 fs = FileStorage()
 
 # All States
 all_states = fs.all(State)
+# print(all_states)
+# for key, value in all_states.items():
+#     print(key)
+
 print("All States: {}".format(len(all_states.keys())))
 for state_key in all_states.keys():
     print(all_states[state_key])

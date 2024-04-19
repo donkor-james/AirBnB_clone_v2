@@ -29,7 +29,7 @@ class FileStorage:
                 class_name, class_id = key.split(".")
                 if cls == classes[class_name]:
                     new_object[key] = value
-                    # print(new_object)
+            # print(new_object)
             return new_object
         return FileStorage.__objects
 
