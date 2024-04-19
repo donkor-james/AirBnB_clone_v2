@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """This module defines a class to manage file storage for hbnb clone"""
 import json
 from models.base_model import BaseModel
@@ -29,7 +30,7 @@ class FileStorage:
                 class_name, class_id = key.split(".")
                 if cls == classes[class_name]:
                     new_object[key] = value
-                    # print(new_object)
+            # print(new_object)
             return new_object
         return FileStorage.__objects
 
