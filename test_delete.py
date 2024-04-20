@@ -9,12 +9,12 @@ fs = FileStorage()
 bm = BaseModel()
 
 diction = bm.to_dict()
-print(diction)
-# # All States
-# all_states = fs.all(State)
-# # print(all_states)
-# # for key, value in all_states.items():
-# #     print(key)
+# print(diction)
+# All States
+all_states = fs.all(State)
+print(all_states)
+for key, value in all_states.items():
+    print(key)
 
 # print("All States: {}".format(len(all_states.keys())))
 # for state_key in all_states.keys():
