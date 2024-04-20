@@ -37,7 +37,7 @@ class Place(BaseModel, Base):
             "gettr for list of previews"
             review_list = []
             all_reviews = models.storage.all(Review)
-            for review_inst in all_reviews.values():
+            for review_inst in list(all_reviews.values()):
                 if self.id == review_inst["place_id"]:
                     review_list.append(review_inst)
             return review_list
