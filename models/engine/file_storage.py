@@ -22,17 +22,14 @@ class FileStorage:
     __objects = {}
 
     def all(self, cls=None):
-        """Returns a dictionary of models currently in storage"""
-        new_object = {}
-        if cls:
-            # print(cls)
-            for key, value in FileStorage.__objects.items():
-                class_name, class_id = key.split(".")
-                if cls == classes[class_name]:
-                    new_object[key] = value
-            # print(new_object)
-            return new_object
-        return FileStorage.__objects
+        """returns the dictionary __objects"""
+        if cls is not None:
+            new_dict = {}
+            for key, value in self.__objects.items():
+                if cls == value.__class__ or cls == value.__class__.__name__:
+                    new_dict[key] = value
+            return new_dict
+        return self.__objects
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
@@ -48,17 +45,11 @@ class FileStorage:
             json.dump(temp, f)
 
     def delete(self, obj=None):
-        """Delete object from storage file"""
-
-        if obj:
-            for key, value in FileStorage.__objects.items():
-                cls, cls_id = key.split(".")
-                # print(key)
-                # obj_id = cls + "." + cls_id
-                if obj.id == cls_id:
-                    print(cls_id + " = " + obj.id)
-                    del FileStorage.__objects[key]
-                    break
+        """delete obj from __objects if it’s inside"""
+        if obj is not None:
+            key = obj.__class__.__name__ + '.' + obj.id
+            if key in self.__objects:
+                del self.__objects[key]
 
     def reload(self):
         """Loads storage dictionary from file"""
