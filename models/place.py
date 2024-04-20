@@ -3,8 +3,6 @@
 import models
 from models.base_model import BaseModel
 from models.review import Review
-from models.city import City
-from models.user import User
 from models.review import Review
 from sqlalchemy import Column, ForeignKey, String, Integer, Float
 from sqlalchemy.orm import relationship
@@ -36,12 +34,14 @@ class Place(BaseModel, Base):
     else:
         @property
         def reviews(self):
+            "gettr for list of previews"
             review_list = []
             all_reviews = models.storage.all(Review)
             for review_inst in all_reviews.values():
                 if self.id == review_inst["place_id"]:
                     review_list.append(review_inst)
-            return relationship
+            return review_list
+
     city_id = ""
     user_id = ""
     name = ""
