@@ -116,35 +116,35 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, args):
         """ Create an object of any class"""
 
-        try:
-            if not args:
-                raise SyntaxError()
-            my_list = args.split(" ")
-
-            kwargs = {}
-            for i in range(1, len(my_list)):
-                key, value = tuple(my_list[i].split("="))
-                if value[0] == '"':
-                    value = value.strip('"').replace("_", " ")
-                else:
-                    try:
-                        value = eval(value)
-                    except (SyntaxError, NameError):
-                        continue
-                kwargs[key] = value
-
-            if kwargs == {}:
-                obj = eval(my_list[0])()
-            else:
-                obj = eval(my_list[0])(**kwargs)
-                storage.new(obj)
-            print(obj.id)
-            obj.save()
-
-        except SyntaxError:
+        kwargs = args.split(" ")
+        print(kwargs[0])
+        if not args:
             print("** class name missing **")
-        except NameError:
-            print("** class doesn't exist **")
+            return
+        elif kwargs[0] not in HBNBCommand.classes:
+            print("** class doesn't existt **")
+            return
+
+        print(kwargs)
+        new_instance = HBNBCommand.classes[kwargs[0]]()
+        for i in kwargs:
+            print(i)
+            if "=" in i:
+                key, value = i.split("=")
+                print(key, value)
+                if value[0] == '"':
+                    value = value.replace('"', "")
+                    value = value.replace("_", " ")
+                elif '.' in value:
+                    value = float(value)
+                else:
+                    value = int(value)
+                print(key)
+                setattr(new_instance, key, value)
+
+        storage.save()
+        print(new_instance.id)
+        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
