@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""a script starts flask and renders routes from /c urls """
+"""a script starts flask  renders routes from /c urls """
 from flask import Flask
 
 app = Flask(__name__)
@@ -16,7 +16,7 @@ def hbnb():
     """ returns HBNB """
     return "HBNB"
 
-@app.route("/c/<text>")
+@app.route("/c/<text>", strict_slashes=False)
 def c(text):
 	""" return c followed by text in the <text> variable """
 	if "_" in text:
