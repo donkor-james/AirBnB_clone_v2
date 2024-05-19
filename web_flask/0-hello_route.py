@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """ script that start flask on port 5000 """
 from flask import Flask
 
