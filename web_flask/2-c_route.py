@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""a script starts flask  renders routes from /c urls """
+""" a script starts flask  renders routes from /c urls """
 from flask import Flask
 
 app = Flask(__name__)
