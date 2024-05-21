@@ -37,7 +37,6 @@ def number(n):
         return "{} is a number".format(n)
 
 
-@app.route('/number_template', strict_slashes=False)
 @app.route('/number_template/<n>', strict_slashes=False)
 def number(n):
     """ display number followed by the value of the n variable """
@@ -45,16 +44,14 @@ def number(n):
         return render_template('5-number.html', n=n)
 
 
-@app.route('/number_odd_or_even', strict_slashes=False)
 @app.route('/number_odd_or_even/<n>', strict_slashes=False)
 def odd_or_even(n):
     """ display number followed by whether it's even or odd """
-    if isinstance(n, int):
-        if n % 2 == 0:
-            result = 'even'
-        else:
-            result = 'odd'
-        return render_template('5-number.html', n=n, result=result)
+    if n % 2 == 0:
+        result = 'even'
+    else:
+        result = 'odd'
+    return render_template('5-number.html', n=n, result=result)
 
 
 if __name__ == '__main__':
