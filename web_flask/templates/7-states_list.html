@@ -10,7 +10,7 @@
         {% if states %}
         {% for state in states.values()|sort(attributes'name') %}
         <LI>
-            {{ states['id'] }}: <B>{{ state['name'] }}</B>
+            {{ state.id }}: <B>{{ state.name }}</B>
         </LI>
         {% endfor %}
         {% endif %}
