@@ -41,8 +41,7 @@ def number(n):
 @app.route('/number_template/<n>', strict_slashes=False)
 def number(n):
     """ display number followed by the value of the n variable """
-    if isinstance(n, int):
-        return render_template('5-number.html', n=n)
+    return "{:d} is a number".format(n)
 
 
 if __name__ == '__main__':
