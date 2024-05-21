@@ -30,11 +30,10 @@ def pythoniscool(text='is cool'):
     return 'Python ' + text.replace('_', ' ')
 
 
-@app.route('/number/<n>', strict_slashes=False)
+@app.route('/number/<int:n>', strict_slashes=False)
 def number(n):
     """ display number followed by the value of the n variable """
-    if isinstance(n, int):
-        return "{} is a number".format(n)
+    return "{:d} is a number".format(n)
 
 
 if __name__ == '__main__':
