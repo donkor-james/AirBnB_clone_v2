@@ -8,6 +8,8 @@ import sqlalchemy
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
 
+STORAGE_TYPE = getenv("HBNB_TYPE_STORAGE")
+
 
 class State(BaseModel, Base):
     """ Representation of state """
@@ -15,15 +17,15 @@ class State(BaseModel, Base):
     name = Column(String(128), nullable=False)
     cities = relationship("City", backref="state")
 
-    if models.storage_t != "db":
+    if STORAGE_TYPE != 'db':
         name = ""
+        city_list = []
 
         @property
         def cities(self):
             """ getter for list of city instances related to the state """
             city_list = []
-            all_cities = models.storage.all(City)
-            for city in all_cities.values():
+            for city in models.storage.all(City):
                 if city.state_id == self.id:
                     city_list.append(city)
             return city_list
