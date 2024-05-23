@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-Contains the class DBStorage
-"""
+""" Contains the class DBStorage """
 
 import models
 from models.amenity import Amenity
@@ -72,5 +70,5 @@ class DBStorage:
         self.__session = Session
 
     def close(self):
-        """call close() method on the private session attribute"""
+        """call close() method on the private session attribute storage"""
         self.__session.close()
