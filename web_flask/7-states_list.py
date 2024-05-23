@@ -16,7 +16,7 @@ def teardown(exception):
 @app.route('/states_list', strict_slashes=False)
 def states_list():
     """ returns list of cities """
-    states = sorted(list(storage.all("State").values()), key=lambda x: x.name)
+    states = storage.all(State)
     return render_template('7-states_list.html', states=states)
 
 
